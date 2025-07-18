@@ -56,7 +56,10 @@ public class WeatherServiceImpl implements WeatherService {
                         0L,
                         0.0,
                         0.0,
-                        0
+                        0,
+                        0,
+                        0.0,
+                        0.0
                 ));
             }
         }
@@ -88,7 +91,10 @@ public class WeatherServiceImpl implements WeatherService {
                     0L,
                     0.0,
                     0.0,
-                    0
+                    0,
+                    0,
+                    0.0,
+                    0.0
             );
         }
     }
@@ -108,6 +114,8 @@ public class WeatherServiceImpl implements WeatherService {
         Map<String, Object> body = response.getBody();
         Map<String, Object> main = (Map<String, Object>) body.get("main");
         Map<String, Object> sys = (Map<String, Object>) body.get("sys");
+        Map<String, Object> wind = (Map<String, Object>) body.get("wind");
+
 
         int timezone = (int) body.get("timezone");
 
@@ -116,6 +124,11 @@ public class WeatherServiceImpl implements WeatherService {
         double tempMax = Double.parseDouble(main.get("temp_max").toString());
         double pressure = Double.parseDouble(main.get("pressure").toString());
         double humidity = Double.parseDouble(main.get("humidity").toString());
+
+        double windSpeed = Double.parseDouble(wind.get("speed").toString());
+        double windDeg = wind.containsKey("deg") ? Double.parseDouble(wind.get("deg").toString()) : 0.0;
+
+        int visibility = body.containsKey("visibility") ? Integer.parseInt(body.get("visibility").toString()) : 0;
 
         long sunrise = Long.parseLong(sys.get("sunrise").toString());
         long sunset = Long.parseLong(sys.get("sunset").toString());
@@ -134,7 +147,10 @@ public class WeatherServiceImpl implements WeatherService {
                 sunset,
                 pressure,
                 humidity,
-                timezone
+                timezone,
+                visibility,
+                windSpeed,
+                windDeg
         );
     }
 }

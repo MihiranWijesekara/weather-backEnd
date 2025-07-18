@@ -21,13 +21,16 @@ public class CityWeatherResponse {
     private String formattedSunset;
     private double pressure;
     private double humidity;
-    private  int timezone;
+    private int timezone;
+    private int visibility;
+    private double windSpeed;
+    private double windDeg;
 
     public CityWeatherResponse(String cityCode, String cityName,
                                double temperature, String status,
                                double temperatureMin, double temperatureMax,
                                long sunrise, long sunset,
-                               double pressure, double humidity,int timezone) {
+                               double pressure, double humidity,int timezone,int visibility,double windSpeed,double windDeg) {
         this.cityCode = cityCode;
         this.cityName = cityName;
         this.temperature = temperature;
@@ -40,6 +43,9 @@ public class CityWeatherResponse {
         this.formattedSunrise = formatUnixTime(sunrise);
         this.formattedSunset = formatUnixTime(sunset);
         this.timezone = timezone;
+        this.visibility = visibility;
+        this.windSpeed = windSpeed;
+        this.windDeg = windDeg;
     }
 
     private String formatUnixTime(long unixTime) {
